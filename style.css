@@ -1,32 +1,28 @@
-body
-{
+body {
   font-family: -apple-system, system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  background-color:f4f4f4;
+  background-color: f4f4f4;
 }
 
-.header{
-  background-color:FFF;
+.header {
+  background-color: FFF;
   margin-top: 0;
-  margin-left:0;
-  margin-right:0;
+  margin-left: 0;
+  margin-right: 0;
   padding-bottom: 10px;
 
 }
 
-.menu
-{
+.menu {
   max-width: 400;
-  margin-left:auto;
+  margin-left: auto;
   margin-right: 0;
 }
 
-.menu a
-{
-margin: 0px 12px 0px 12px ;
+.menu a {
+  margin: 0px 12px 0px 12px;
 }
 
-.menu .button
-{
+.menu .button {
   -webkit-appearance: button;
   -moz-appearance: button;
   appearance: button;
@@ -34,8 +30,7 @@ margin: 0px 12px 0px 12px ;
   color: initial;
 }
 
-.spacer
-{
+.spacer {
   margin: 20px 0px 0px 0px;
 }
 
@@ -67,14 +62,13 @@ margin: 0px 12px 0px 12px ;
   margin: 0;
 }
 
-.card a
-{
-  font-size:medium;
+.card a {
+  font-size: medium;
   color: #ebe7e7;
-  margin-top: auto; 
+  margin-top: auto;
   margin-bottom: 6px;
   text-decoration: underline;
-  text-shadow: 2px 0px #353535 ;
+  text-shadow: 2px 0px #353535;
 }
 
 @media screen and (min-width: 600px) {
@@ -85,4 +79,39 @@ margin: 0px 12px 0px 12px ;
   .card-wide {
     grid-column: span 2 / auto;
   }
+}
+
+
+
+
+.portfolio-list-image-container {
+  position: relative;
+  /* This is crucial for positioning the text relative to this container */
+  margin: 10 auto;
+  max-width: 500px;
+}
+
+.portfolio-list-image-container img {
+  display: block;
+  /* Removes any extra space below the image */
+  width: 100%;
+  /* Makes the image responsive and fill its container */
+  height: auto;
+  /* Maintains the aspect ratio */
+}
+
+.portfolio-list-image-container .image-text {
+  position: absolute;
+  /* This positions the text relative to the container */
+  bottom: 2pt;
+  /* Puts the top edge of the text at the vertical center of the container */
+  left: 5pt;
+  /* Puts the left edge of the text at the horizontal center of the container */
+  /* Moves the text back by half of its own width and height, precisely centering it */
+  color: white;
+  /* Choose a text color that contrasts well with the image */
+  font-size: 24px;
+  /* Adjust font size as needed */
+  text-align: center;
+  /* Centers the text block itself */
 }
