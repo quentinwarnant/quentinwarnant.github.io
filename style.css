@@ -108,10 +108,22 @@ body {
   left: 5pt;
   /* Puts the left edge of the text at the horizontal center of the container */
   /* Moves the text back by half of its own width and height, precisely centering it */
-  color: white;
+  color: rgb(231, 231, 231);
   /* Choose a text color that contrasts well with the image */
-  font-size: 24px;
+  font-size: 18px;
   /* Adjust font size as needed */
   text-align: center;
   /* Centers the text block itself */
+}
+
+video {
+  width: 50%;
+  /* Makes the video responsive to its container */
+  max-width: 800px;
+  /* Sets a maximum width for larger screens */
+  height: auto;
+  /* Maintains the video's aspect ratio */
+  border: 2px solid #333;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
