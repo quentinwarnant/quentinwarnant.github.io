@@ -1,0 +1,43 @@
+[[main]]
+none = "none"
+
+[[main]]
+name = "Graphics"
+pageRef = "graphics"
+identifier = "JAtmkN0g6U"
+weight = 1
+
+[[main]]
+name = "Projects"
+pageRef = "projects"
+identifier = "WlymdhbU5m"
+weight = 2
+
+[[main]]
+name = "Talks"
+pageRef = "talks"
+identifier = "HGfQCFarGm"
+weight = 3
+
+[[main]]
+name = "About"
+pageRef = "About"
+identifier = "JhRihvu4Zt"
+weight = 4
+
+[[main]]
+name = ""
+pre = "github"
+url = "https://github.com/quentinwarnant"
+identifier = "qSdnC76dzQ"
+weight = 9_998
+
+[[main]]
+name = ""
+pre = "linkedin"
+url = "https://www.linkedin.com/in/quentin-warnant-b8006764/"
+identifier = "ffguPcejep"
+weight = 9_999
+
+[[footer]]
+none = "none"

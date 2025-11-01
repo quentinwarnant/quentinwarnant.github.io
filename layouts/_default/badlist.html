@@ -1,0 +1,13 @@
+{{ define "main" }}
+<main>
+	<header>
+		<h1>{{ .Title }}</h1>
+	</header>
+	this is a list
+	<div>
+		{{ range .Pages }}
+		{{ .Render "summary" }}
+		{{ end }}
+	</div>
+</main>
+{{ end }}

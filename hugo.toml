@@ -1,0 +1,8 @@
+baseURL = 'https://qwarnant.com'
+languageCode = 'en-us'
+title = 'Quentin Warnant - Senior Rendering Engineer'
+theme = 'ananke'
+
+[outputs]
+  home = ['html', 'rss']
+  section = ['html', 'rss']

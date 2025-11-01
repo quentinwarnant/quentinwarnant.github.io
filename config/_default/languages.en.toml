@@ -1,0 +1,19 @@
+disabled = false
+languageCode = "en"
+languageName = "English"
+weight = 1
+title = "Quentin Warnant - Senior rendering engineer"
+
+[params]
+displayName = "EN"
+isoCode = "en"
+rtl = false
+dateFormat = "2 January 2006"
+description = "Senior rendering engineer"
+
+  [params.author]
+  links = [ ]
+
+["params.author"]
+name = "Quentin Warnant"
+headline = "Senior rendering engineer"

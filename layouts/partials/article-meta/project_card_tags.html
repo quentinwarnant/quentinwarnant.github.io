@@ -1,0 +1,6 @@
+<a>
+	{{ $t := .GetTerms "tags" }}
+	{{range $index, $element := $t}}
+	<u>{{$element.LinkTitle}}</u>
+	{{ end }}
+</a>
