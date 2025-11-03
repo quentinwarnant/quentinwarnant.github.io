@@ -6,13 +6,17 @@ tags: ["game", "jam"]
 Type: "other"
 weight: 500
 ---
+![Alt text](echo2.gif "500px")
+
+### Description
 Ludum Dare #39 48h game jam
+#### Accolades
+2nd place in _graphics_ category 
 
-2nd in graphics 
+### Role: Gameplay engineer
 
-https://ldjam.com/events/ludum-dare/39/echo
+[Link](https://ldjam.com/events/ludum-dare/39/echo)
 
 ![Alt text](echo1.gif "500px")
-![Alt text](echo2.gif "500px")
 ![Alt text](echo3.gif "500px")
 

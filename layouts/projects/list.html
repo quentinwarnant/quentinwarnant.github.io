@@ -117,7 +117,7 @@
 		</section>
 	</div>
 	{{ else }}
-	Highlighted
+	<u class="mt-5 text-2xl font-bold text-neutral-900 dark:text-neutral">Featured</u>
 	{{ $pages := (.Paginate (.Pages.ByWeight)).Pages }}
 	<section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
 		{{ range where $pages "Type" "highlight" }}
@@ -125,7 +125,7 @@
 		{{ end }}
 	</section>
 	<br />
-	Other
+	<u class="mt-5 text-2xl font-bold text-neutral-900 dark:text-neutral">Other</u>
 	<section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
 		{{ range where $pages "Type" "other" }}
 		{{ partial "article-link/project_card.html" . }}
