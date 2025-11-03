@@ -6,3 +6,7 @@ theme = 'ananke'
 [outputs]
   home = ['html', 'rss']
   section = ['html', 'rss']
+
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
