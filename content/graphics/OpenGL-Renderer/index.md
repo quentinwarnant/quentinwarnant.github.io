@@ -6,4 +6,6 @@ description: "a description"
 Type: "highlight"
 weight: 300
 ---
-TODO: write up about this effect
+![Alt text](featured.png "500px")
+
+This is my OpenGL toy renderer, which I used to learn the API and to implement some basics of rendering like loading a model, texturing, basic forward lighting and directional shadows
