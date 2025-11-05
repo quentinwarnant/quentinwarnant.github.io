@@ -34,16 +34,16 @@ showAppearanceSwitcher = true
 showScrollToTop = true
 
 [homepage]
-layout = "page"
+layout = "profile"
 showRecent = false
-showRecentItems = 5
+showRecentItems = "5"
 showMoreLink = false
-showMoreLinkDest = "/posts/"
-cardView = false
+showMoreLinkDest = "/graphics/"
+cardView = true
 cardViewScreenWidth = false
 layoutBackgroundBlur = false
 disableHeroImageFilter = false
-homepageImage = "opengl-renderer-thumbnail.png "
+homepageImage = "images/me.jpg"
 
 [article]
 showDate = true

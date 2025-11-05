@@ -11,9 +11,8 @@ rtl = false
 dateFormat = "2 January 2006"
 description = "Senior rendering engineer"
 
-  [params.author]
-  links = [ ]
-
 ["params.author"]
 name = "Quentin Warnant"
 headline = "Senior rendering engineer"
+image = "images/me.jpg"
+bio = "Polishing pixels"
