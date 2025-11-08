@@ -12,17 +12,24 @@ Regular contributor to Epic Game's Github depot with improvements, extensions an
 
 #### Contributions:
 
-TODO: add description & formatting for Pull Requests
+{{< pull-request status=Open link=13718 desc="Exporting UStaticMeshSocket's Serialize and PostEditChangeProperty functions">}}
 
-* Open: https://github.com/EpicGames/UnrealEngine/pull/13718
-* Open: https://github.com/EpicGames/UnrealEngine/pull/13628
-* Open: https://github.com/EpicGames/UnrealEngine/pull/13627
-* Accepted: 5.7: https://github.com/EpicGames/UnrealEngine/pull/13328
-* Open: https://github.com/EpicGames/UnrealEngine/pull/12317
-* Declined: https://github.com/EpicGames/UnrealEngine/pull/12161
-* Declined due to duplicate but valid fix  5.4: https://github.com/EpicGames/UnrealEngine/pull/11553
-* contributed to solution: https://github.com/EpicGames/UnrealEngine/pull/10525
-* Declined: https://github.com/EpicGames/UnrealEngine/pull/9534
-* Accepted: 5.3: https://github.com/EpicGames/UnrealEngine/pull/10329
-* Accepted: 5.3: https://github.com/EpicGames/UnrealEngine/pull/9405
-https://github.com/EpicGames/UnrealEngine/commit/7b6ecfc49f9f3575564d80defa1b45612edb1a34
+{{< pull-request status=Open link=13628 desc="Shader loading: prevent dereferencing potential nullptr when file is not found">}}
+
+{{< pull-request status=Open link=13627 desc="Extending RigidMeshCollisionQuery NDI: Exposing first element of each type & extents">}}
+
+{{< pull-request status=Accepted version="5.7" link=13328 desc="Niagara Data Interface allows us to set material parameters on Material Instance Dynamic objects, from a CPU stage">}}
+
+{{< pull-request status=Open link=12317 desc="Expose Groom Hair strand tip vertex index to niagara data interface">}}
+
+{{< pull-request status=Declined link=12161 desc="Making the contribution of Exponential height for optional in volumetric fog">}}
+
+{{< pull-request status=Duplicated version="5.4" link=11553 desc="Skip compilation of niagara data interface if NoShaderCompile">}}
+
+{{< pull-request status=Duplicated version="Contributed to final solution" link=10525 desc="Making niagara GPU data buffers comitted resources instead of placed resources, to avoid serialisation of emitters due to memory aliasing barriers">}}
+
+{{< pull-request status=Declined link=9534 desc="Introducing a method to use Group Shared Memory in Niagara">}}
+
+{{< pull-request status=Accepted version="5.3" link=10329 desc="Add on screen warning Debug device (eg d3ddebug) is enabled during stats">}}
+
+{{< pull-request status=Accepted version="5.3" link=9405 desc="Improve Niagara simulation stage extendability">}}

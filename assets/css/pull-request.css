@@ -1,0 +1,51 @@
+.link-label {
+	display: inline-block;
+	padding: 0.2em 0.6em;
+	margin-right: 0.5em;
+	font-size: 0.8em;
+	font-weight: bold;
+	color: white;
+	border-radius: 9999px;
+	text-transform: uppercase;
+
+}
+
+.link-label--Open {
+	background-color: #007bff;
+	border-radius: 9999px;
+	padding: 5px;
+}
+
+.link-label--Accepted {
+	background-color: #28a745;
+	border-radius: 9999px;
+	padding: 5px;
+}
+
+.link-label--Declined {
+	background-color: #dc3545;
+	border-radius: 9999px;
+	padding: 5px;
+}
+
+.link-label--Duplicated {
+	background-color: #823f59;
+	border-radius: 9999px;
+	padding: 5px;
+}
+
+.link-label--default {
+	background-color: #6c757d;
+	border-radius: 9999px;
+	padding: 5px;
+}
+
+.rounded-box {
+	border-radius: 12px;
+	border: 2px solid #101620;
+	padding: 5px;
+	width: 100%;
+	box-sizing: border-box;
+
+	margin-bottom: 10px;
+}

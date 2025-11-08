@@ -1,0 +1,30 @@
+{{- $root := . -}}
+{{- $status := .Params.status -}}
+{{- $statusLabel := "bloop" -}}
+{{- $class := "" -}}
+
+{{- with $status -}}
+{{- if or (eq . "Open") (eq . "Declined") (eq . "Accepted") (eq . "Duplicated") -}}
+{{- $class = printf "link-label--%s" . -}}
+{{- else -}}
+{{- $class = "link-label--default" -}}
+{{- end -}}
+
+{{- if or (eq . "Accepted") -}}
+{{- $statusLabel = $root.Get "version" -}}
+{{- else if (eq . "Duplicated") -}}
+
+{{- with $root.Get "version" -}}
+{{- $statusLabel = printf "Duplicated - %s" . -}}
+{{- end -}}
+
+{{- else -}}
+{{- $statusLabel = $status -}}
+{{- end -}}
+{{- end -}}
+
+
+<div class="rounded-box">
+	<span class="{{ $class }}">{{ $statusLabel }}</span>
+	- <a href="https://github.com/EpicGames/UnrealEngine/pull/{{ .Params.link }}">{{ .Params.desc }}</a>
+</div>
