@@ -37,3 +37,5 @@ Step into the epic Warhammer 40,000 universe with Warhammer 40,000: Freeblade! T
 ![Alt text](freeblade1.png "500px")
 ![Alt text](freeblade2.png "500px")
 ![Alt text](freeblade3.png "500px")
+
+![alt text](freeblade_playstore_feature.png "500px")

@@ -4,7 +4,7 @@ date: 2025-11-01
 draft: false
 description: "a description"
 Type: "old"
-weight: 1000
+weight: 700
 ---
 ![Alt text](ltreeheader.png "500px")
 This effect implements L-System trees, by growing a branch up to a certain distance, then generating multiple new branches off the end of that branch within an angle range. Gravity is factored in, to gradually pull the branches more towards the ground.

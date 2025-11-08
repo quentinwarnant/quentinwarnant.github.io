@@ -6,4 +6,6 @@ description: "a description"
 Type: "old"
 weight: 1000
 ---
-TODO: write up about this effect
+![Alt text](featured.gif "300px")
+
+Parallax mapping is a technique that allows to artificially recess or extrude the surface of a mesh, in the pixel shader, suggesting geometric detail that isn't modelled.

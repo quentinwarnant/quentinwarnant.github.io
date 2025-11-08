@@ -36,5 +36,6 @@ I developed a tool to generate unique jersey player number and name texture asse
 #### Gameplay
 At one point the game involved a quick-time-event mechanic. I used quadratic functions to calculate the arc the ball should follow when thrown to land at a calculated location (either successful or not depending on the player's input) At other points the game involved more tactical decisions to get through opponents before shooting at the hoop. With meta-game elements having an impact on action success rate.
 
+![Alt text](nbagame1.png "300px")
 ![Alt text](nbagame_ball.gif "300px")
 {{< youtube QdYHWJSn_gM >}}
