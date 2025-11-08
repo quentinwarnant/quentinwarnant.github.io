@@ -12,3 +12,5 @@ This effect implements ocean waves using Tessendorf's [paper](https://people.com
 
 The same technique was used in Sea of Thieves, for it's ocean waves - except it wasn't implemented in Niagara.
 
+Prior to that implementation, I also implemented without the tutorial mentioned above, in  Unity3D, although it visually doesn't shine as much, it did functionally just the same
+{{< youtube 1lkvZZXtb-o >}}

@@ -13,3 +13,7 @@ This technique uses a box approximation around reflected geometry, that represen
 This fixes some stretching and discontiuation in reflections we'd normally see in cubemap reflections, at the cost of a bit more computational cost. 
 
 See Sebastien Lagarde & colleagues [paper](https://seblagarde.wordpress.com/wp-content/uploads/2012/08/parallax_corrected_cubemap-siggraph2012.pdf)
+
+A comparison between the corrected and regular cubemap reflection
+![Alt text](rendering-reflectionmap_position_corrected.gif "600px")
+
