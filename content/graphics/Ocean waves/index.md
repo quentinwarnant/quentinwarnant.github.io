@@ -6,13 +6,9 @@ description: "a description"
 Type: "highlight"
 weight: 200
 ---
- an example to get you started
-# This is a heading
-## This is a subheading
-### This is a subsubheading
-#### This is a subsubsubheading
-This is a paragraph with **bold** and *italic* text.
-Check more at [Blowfish documentation](https://blowfish.page/)
-undefined
+![Alt text](featured.gif "200px")
 
-![Alt text](featured.png "200px")
+This effect implements ocean waves using Tessendorf's [paper](https://people.computing.clemson.edu/~jtessen/reports/papers_files/coursenotes2004.pdf), using the Fast Fourrier Transform. This [Tutorial](https://dev.epicgames.com/community/learning/tutorials/qM1o/unreal-engine-ocean-simulation) was extremely useful to implement it.
+
+The same technique was used in Sea of Thieves, for it's ocean waves - except it wasn't implemented in Niagara.
+
