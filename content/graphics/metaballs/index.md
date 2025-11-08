@@ -8,7 +8,7 @@ weight: 1000
 ---
 ![Alt text](featured.gif "400px")
 
-I explored implementing metaballs using P4js, quickly learning the performance cost increases rapidly when resolution increases. To resolve this I learned to also implement the marching square algorithm, and interpolate the lines in each square to make the shapes look smooth.
+I explored implementing metaballs using [Processing](https://processing.org/), quickly learning the performance cost increases rapidly when resolution increases. To resolve this I learned to also implement the marching square algorithm, and interpolate the lines in each square to make the shapes look smooth.
 
 Without using Marching Square:
 <video controls src="01_MetaBalls.mov" width="300px" title="Title"></video>
