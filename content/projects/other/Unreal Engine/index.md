@@ -8,7 +8,7 @@ weight: 200
 ---
 
 ### Role
-Regular contributor to Epic Game's Github depot with improvements, extensions and fixes.
+I'm a regular contributor to Epic Game's Github depot with improvements, extensions and fixes as well as through direct discussions with the development team.
 
 #### Contributions:
 
@@ -26,7 +26,7 @@ Regular contributor to Epic Game's Github depot with improvements, extensions an
 
 {{< pull-request status=Duplicated version="5.4" link=11553 desc="Skip compilation of niagara data interface if NoShaderCompile">}}
 
-{{< pull-request status=Duplicated version="Contributed to final solution" link=10525 desc="Making niagara GPU data buffers comitted resources instead of placed resources, to avoid serialisation of emitters due to memory aliasing barriers">}}
+{{< pull-request status=Duplicated version="5.4" link=10525 desc="Making niagara GPU data buffers comitted resources instead of placed resources, to avoid serialisation of emitters due to memory aliasing barriers">}}
 
 {{< pull-request status=Declined link=9534 desc="Introducing a method to use Group Shared Memory in Niagara">}}
 
