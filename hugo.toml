@@ -1,7 +1,7 @@
 baseURL = 'https://qwarnant.com'
 languageCode = 'en-us'
 title = 'Quentin Warnant - Senior Rendering Engineer'
-theme = 'ananke'
+theme = 'blowfish'
 
 [outputs]
   home = ['html', 'rss']
