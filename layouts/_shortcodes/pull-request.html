@@ -5,9 +5,9 @@
 
 {{- with $status -}}
 {{- if or (eq . "Open") (eq . "Declined") (eq . "Accepted") (eq . "Duplicated") -}}
-{{- $class = printf "link-label--%s" . -}}
+{{- $class = printf "pr-link-label--%s" . -}}
 {{- else -}}
-{{- $class = "link-label--default" -}}
+{{- $class = "pr-link-label--default" -}}
 {{- end -}}
 
 {{- if or (eq . "Accepted") -}}
@@ -24,7 +24,7 @@
 {{- end -}}
 
 
-<div class="rounded-box">
+<div class="pr-rounded-box">
 	<span class="{{ $class }}">{{ $statusLabel }}</span>
 	- <a href="https://github.com/EpicGames/UnrealEngine/pull/{{ .Params.link }}">{{ .Params.desc }}</a>
 </div>

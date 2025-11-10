@@ -1,4 +1,4 @@
-.link-label {
+.pr-link-label {
 	display: inline-block;
 	padding: 0.2em 0.6em;
 	margin-right: 0.5em;
@@ -10,62 +10,65 @@
 
 }
 
-.link-label--Open {
+.pr-link-label--Open {
 	background-color: #014895;
 	border-radius: 9999px;
 	padding: 5px;
-	color: rgb(225, 214, 214);
+	color: #e9e8e8;
 
 	&:is(.dark *) {
 		color: white;
 	}
 }
 
-.link-label--Accepted {
+.pr-link-label--Accepted {
 	background-color: #1e7d34;
 	border-radius: 9999px;
 	padding: 5px;
-	color: rgb(225, 214, 214);
+	color: #e9e8e8;
 
 	&:is(.dark *) {
 		color: white;
 	}
 }
 
-.link-label--Declined {
+.pr-link-label--Declined {
 	background-color: #992f39;
 	border-radius: 9999px;
 	padding: 5px;
-	color: rgb(225, 214, 214);
+	color: #e9e8e8;
 
 	&:is(.dark *) {
 		color: white;
 	}
 }
 
-.link-label--Duplicated {
+.pr-link-label--Duplicated {
 	background-color: #757c58;
 	border-radius: 9999px;
 	padding: 5px;
-	color: rgb(225, 214, 214);
+	color: #e9e8e8;
 
 	&:is(.dark *) {
 		color: white;
 	}
 }
 
-.link-label--default {
+.pr-link-label--default {
 	background-color: #6c757d;
 	border-radius: 9999px;
 	padding: 5px;
 }
 
-.rounded-box {
+.pr-rounded-box {
 	border-radius: 12px;
-	border: 2px solid #283854;
+	border: 2px solid #7d7d7d;
 	padding: 5px;
 	width: 100%;
 	box-sizing: border-box;
 
 	margin-bottom: 10px;
+	&:is(.dark *) {
+		border: 2px solid #283854;
+	}
 }
