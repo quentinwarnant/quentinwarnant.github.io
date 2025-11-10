@@ -5,7 +5,7 @@ title = 'Portfolio'
 +++
 
 ## About
-![Alt text](../AboutAssets/me.jpg "200px")
+<img style="float: left; padding-right: 20px;" width="300px" src="../AboutAssets/me.jpg">
 
 My name is Quentin Warnant,
 
