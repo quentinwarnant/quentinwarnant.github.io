@@ -7,13 +7,13 @@ title = 'Talks'
 ## Public & internal talks
 
 2025
-- Interactive vines using Nagara and Position-Based Dynamics @Unreal Fest Stockholm 2025 (public)
-- Interactive vines using Nagara and Position-Based Dynamics @Xbox Games Studio Unreal Summit (internal)
-- Materials Level of Details @Xbox Games Studio Unreal Summit (internal)
+- <span style="color:#0fb24e">Public</span> | __Unreal Fest Stockholm 2025__ | _Interactive vines using Nagara and Position-Based Dynamics_
+- <span style="color:#ffb24e">Internal</span> | __XBox Games Studio Unreal Summit__ | _Interactive vines using Nagara and Position-Based Dynamics_
+- <span style="color:#ffb24e">Internal</span> | __XBox Games Studio Unreal Summit__ | _Materials Level of Details_
 
 2024
-- Introduction to Eulerian Fluid Simulations @Xbox Games Studio Unreal Summit (internal)
+- <span style="color:#ffb24e">Internal</span> | __XBox Games Studio Unreal Summit__ | _Introduction to Eulerian Fluid Simulations_
 
 2023
-- UE5's Niagara 101 for technical artists & rendering engineers @Rare (internal) 
+- <span style="color:#ffb24e">Internal</span> | __Rare__ |  _UE5's Niagara 101 for technical artists & rendering engineers_
 
