@@ -22,7 +22,7 @@ rssnext = { }
 advertisement = { }
 highlightCurrentMenuArea = "enable"
 defaultBackgroundImage = "opengl-renderer-thumbnail.png "
-googleAnalytics="G-XV7Y7PJC3F"
+googleAnalytics="G-F0DCKZK4D6"
 
 [header]
 layout = "basic"
