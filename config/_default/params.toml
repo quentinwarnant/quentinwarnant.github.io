@@ -22,7 +22,8 @@ rssnext = { }
 advertisement = { }
 highlightCurrentMenuArea = "enable"
 defaultBackgroundImage = "opengl-renderer-thumbnail.png "
-googleAnalytics="G-F0DCKZK4D6"
+googleAnalytics = "G-F0DCKZK4D6"
+mainSections = ["posts"]
 
 [header]
 layout = "basic"
@@ -36,11 +37,11 @@ showScrollToTop = true
 
 [homepage]
 layout = "profile"
-showRecent = false
+showRecent = true
 showRecentItems = "5"
 showMoreLink = false
-showMoreLinkDest = "/graphics/"
-cardView = true
+showMoreLinkDest = "/posts/"
+cardView = false
 cardViewScreenWidth = false
 layoutBackgroundBlur = false
 disableHeroImageFilter = false
@@ -111,4 +112,3 @@ showTableOfContents = true
 groupByYear = false
 cardView = false
 cardViewScreenWidth = ""
-
