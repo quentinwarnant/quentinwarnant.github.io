@@ -7,8 +7,9 @@ title = 'Talks'
 ## Public & internal talks
 
 2025
-- <span style="color:#0fb24e">Public</span> | __Unreal Fest Stockholm 2025__ | _Interactive vines using Nagara and Position-Based Dynamics_
-- <span style="color:#ffb24e">Internal</span> | __XBox Games Studio Unreal Summit__ | _Interactive vines using Nagara and Position-Based Dynamics_
+- <span style="color:#0fb24e">Public</span> | __Unreal Fest Stockholm 2025__ | _Interactive vines using Niagara and Position-Based Dynamics_
+{{< youtube 7fmGQObsc7w >}}
+- <span style="color:#ffb24e">Internal</span> | __XBox Games Studio Unreal Summit__ | _Interactive vines using Niagara and Position-Based Dynamics_
 - <span style="color:#ffb24e">Internal</span> | __XBox Games Studio Unreal Summit__ | _Materials Level of Details_
 
 2024
