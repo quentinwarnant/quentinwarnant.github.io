@@ -12,3 +12,7 @@ weight: 800
 AstroDX12 is my toy DirectX12 renderer, which I use to deepen my understanding of low level api concepts, as well as implement fun effects, like position based dynamic simulations
 
 ![Alt text](pbd_chain.gif "500px")
+
+2D Eulerian Fluid simulation
+{{< youtube 5Hdusa43_LM >}}
+
