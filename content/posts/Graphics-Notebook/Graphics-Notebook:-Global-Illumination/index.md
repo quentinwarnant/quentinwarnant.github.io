@@ -50,6 +50,9 @@ Probes are usually placed at the surface of the geometry, not in empty space - t
 
 It's impractical to cover the whole scene with probes at a very high density, so we interpolate between nearby probes instead
 
+## Irradiance
+Irradiance is the amount of light arriving at a location in space, it's dirrectionless and informs diffuse lighting.
+
 # Ray-Tracing vs Path-Tracing
 Ray-Tracing and Path-Tracing are similar algorithms that shoot rays in a scene and light up the world surfaces which are then experienced by the camera. This differs from Rasterisation, where the objects would first be rasterised onto the screen, and then lit. This older approach didn't properly allow us to have a representation of the scene, outside the view frustum impact the part of the scene we could see.
 For example, reflection in mirrors would struggle to render the front of the character in a third person game, or other parts of the room outside the view.
