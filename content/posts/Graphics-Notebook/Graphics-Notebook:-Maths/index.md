@@ -3,7 +3,7 @@ title: "Graphics Notebook: Maths"
 date: 2025-11-01
 draft: false
 description: "a description"
-tags: ["notebook", "physics"]
+tags: ["notebook", "maths"]
 ---
 > This page is part of my "graphics notebook" series, where I keep notes on graphics concepts as I learn about them, to serve as a reference.
 
@@ -53,3 +53,16 @@ For example, when calculating the how much velocity flowed into a cell, we take 
 
 ## Geometry
 - Lines, Shapes, Triangles, Circles, Volume, Area, Perimeter, ...
+
+
+# Notation
+- x : scalar
+- *x* : vector
+- X : Matrix
+- I : Identity Matrix
+- Σ : Summation (for loop, adding values over X iterations)
+- Π : Product (for loop, multiplying value sover X iterations)
+
+## Great resources
+- [Khan Academy](https://www.khanacademy.org/)
+- [Reading Math Papers](https://mini.gmshaders.com/p/readingmath)
