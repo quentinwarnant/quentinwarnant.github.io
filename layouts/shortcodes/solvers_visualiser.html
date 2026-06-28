@@ -1,24 +1,24 @@
 <div class="solver-container"
 	style="max-width: 720px; margin: 2rem auto; font-family: sans-serif; background: #1a1a1a; color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); box-sizing: border-box;">
-	<h3 style="margin-top: 0; text-align: center; color: #4af;">Solvers Comparison</h3>
+	<h3 style="margin-top: 0; text-align: center; color: #4af;">Overlapped Solver Comparison</h3>
 	<p style="font-size: 0.85rem; text-align: center; color: #aaa; margin-bottom: 15px;">
 		Drag any node to deform the system. Step through individual iterations to watch the tracks split
 		apart and see which solver snaps back to structural rest fastest.
 	</p>
 
 	<div
-		style="display: flex; justify-content: center; gap: 12px; background: #222; padding: 12px; border-radius: 4px; margin-bottom: 15px; font-size: 0.85rem; flex-wrap: wrap; align-items: center;">
+		style="display: flex; justify-content: center; gap: 12px; background: #222; padding: 12px; border-radius: 4px; margin-bottom: 15px; font-size: 0.85rem; flex-wrap: nowrap; align-items: center;">
 		<button id="stepBtn"
 			style="background: #e67e22; border: none; color: #fff; padding: 6px 20px; border-radius: 3px; cursor: pointer; font-weight: bold; font-size: 0.9rem;">Step
 			1 Iteration</button>
-		<button id="step10Btn"
-			style="background: #2253e6; border: none; color: #fff; padding: 6px 20px; border-radius: 3px; cursor: pointer; font-weight: bold; font-size: 0.9rem;">Step
-			10 Iteration</button>
 		<button id="resetSolverBtn"
 			style="background: #e74c3c; border: none; color: #fff; padding: 6px 20px; border-radius: 3px; cursor: pointer; font-weight: bold; font-size: 0.9rem;">Reset
 			Simulation</button>
 
-		<div id="iterCounter" style="font-weight: bold; color: #fff; ">Iterations: 0</div>
+		<div style="border-left: 1px solid #444; height: 20px; margin: 0 5px; flex-shrink: 0;"></div>
+		<span id="iterCounter"
+			style="font-weight: bold; color: #fff; white-space: nowrap; min-width: 95px; text-align: left;">Iterations:
+			0</span>
 	</div>
 
 	<div
@@ -39,7 +39,7 @@
 
 	<div style="text-align: center; box-sizing: border-box;">
 		<canvas id="solverCanvas" width="680" height="240"
-			style="background: #111; border-radius: 4px; display: block; width: 100%; height: auto; cursor: pointer; box-sizing: border-box;"></canvas>
+			style="background: #111; border-radius: 4px; display: block; width: 100%; height: auto; cursor: pointer; box-sizing: border-box; touch-action: none;"></canvas>
 	</div>
 </div>
 
@@ -50,20 +50,17 @@
 		const ctx = canvas.getContext('2d');
 
 		const stepBtn = document.getElementById('stepBtn');
-		const step10Btn = document.getElementById('step10Btn');
 		const resetSolverBtn = document.getElementById('resetSolverBtn');
 		const iterCounter = document.getElementById('iterCounter');
 
 		let iterationCount = 0;
 
-		// Simulation architecture rules
 		const numNodes = 7;
 		const restLength = 95;
 		const stiffness = 0.4;
 		const spacingX = canvas.width / (numNodes - 1);
 		const globalYCenter = canvas.height / 2;
 
-		// Symmetric Shared Tracks with Distinct Color Identification profiles
 		const tracks = [
 			{ id: 'Jacobi', color: '#4af', nodes: [] },
 			{ id: 'GS', color: '#51cf66', nodes: [] },
@@ -88,77 +85,100 @@
 
 		let activeDragIndex = -1;
 
-		function getMousePos(canvas, evt) {
+		// Fixed coordinate scaling helper to support both mouse and mobile touch points
+		function getCanvasCoords(canvas, clientX, clientY) {
 			const rect = canvas.getBoundingClientRect();
 			const scaleX = canvas.width / rect.width;
 			const scaleY = canvas.height / rect.height;
 			return {
-				x: (evt.clientX - rect.left) * scaleX,
-				y: (evt.clientY - rect.top) * scaleY
+				x: (clientX - rect.left) * scaleX,
+				y: (clientY - rect.top) * scaleY
 			};
 		}
 
-		canvas.addEventListener('mousedown', function (evt) {
-			const pos = getMousePos(canvas, evt);
-
-			// Grab closest index based on the primary system reference track (Jacobi layer)
+		function handleStart(posX, posY) {
 			const referenceTrack = tracks[0];
 			for (let i = 1; i < numNodes - 1; i++) {
 				const node = referenceTrack.nodes[i];
-				const dx = node.x - pos.x;
-				const dy = node.y - pos.y;
-				if (Math.sqrt(dx * dx + dy * dy) < 22) {
+				const dx = node.x - posX;
+				const dy = node.y - posY;
+				// Increased tap radius to 28 for easier mobile finger selection
+				if (Math.sqrt(dx * dx + dy * dy) < 28) {
 					activeDragIndex = i;
 					iterationCount = 0;
 					break;
 				}
 			}
-		});
+		}
 
-		window.addEventListener('mousemove', function (evt) {
+		function handleMove(posX, posY) {
 			if (activeDragIndex === -1) return;
-			const pos = getMousePos(canvas, evt);
+			const targetX = Math.max(20, Math.min(canvas.width - 20, posX));
+			const targetY = Math.max(10, Math.min(canvas.height - 10, posY));
 
-			const targetX = Math.max(20, Math.min(canvas.width - 20, pos.x));
-			const targetY = Math.max(10, Math.min(canvas.height - 10, pos.y));
-
-			// Lock all tracks together perfectly during input displacement configurations
 			tracks.forEach(track => {
 				track.nodes[activeDragIndex].x = targetX;
 				track.nodes[activeDragIndex].y = targetY;
 			});
 			draw();
+		}
+
+		function handleEnd() {
+			activeDragIndex = -1;
+		}
+
+		// --- Desktop Mouse Listeners ---
+		canvas.addEventListener('mousedown', function (evt) {
+			const coords = getCanvasCoords(canvas, evt.clientX, evt.clientY);
+			handleStart(coords.x, coords.y);
 		});
 
-		window.addEventListener('mouseup', function () {
-			activeDragIndex = -1;
+		window.addEventListener('mousemove', function (evt) {
+			const coords = getCanvasCoords(canvas, evt.clientX, evt.clientY);
+			handleMove(coords.x, coords.y);
 		});
+
+		window.addEventListener('mouseup', handleEnd);
+
+		// --- Mobile Touch Listeners ---
+		canvas.addEventListener('touchstart', function (evt) {
+			if (evt.touches.length === 0) return;
+			evt.preventDefault(); // Prevents modern phone bounce effects
+			const touch = evt.touches[0];
+			const coords = getCanvasCoords(canvas, touch.clientX, touch.clientY);
+			handleStart(coords.x, coords.y);
+		}, { passive: false });
+
+		window.addEventListener('touchmove', function (evt) {
+			if (activeDragIndex === -1 || evt.touches.length === 0) return;
+			evt.preventDefault();
+			const touch = evt.touches[0];
+			const coords = getCanvasCoords(canvas, touch.clientX, touch.clientY);
+			handleMove(coords.x, coords.y);
+		}, { passive: false });
+
+		window.addEventListener('touchend', handleEnd);
+		window.addEventListener('touchcancel', handleEnd);
 
 		stepBtn.addEventListener('click', () => { runGlobalIteration(); draw(); });
-		step10Btn.addEventListener('click', () => {  for(let it = 0; it < 10; it++) {runGlobalIteration(); } draw(); });
 		resetSolverBtn.addEventListener('click', () => { initTracks(); draw(); });
 
 		function runGlobalIteration() {
 			iterationCount++;
-
 			tracks.forEach(track => {
 				const nodes = track.nodes;
-
 				if (track.id === 'Jacobi') {
 					const oldPos = nodes.map(n => ({ x: n.x, y: n.y }));
 					for (let i = 1; i < nodes.length - 1; i++) {
 						if (activeDragIndex === i) continue;
-
 						const dxL = oldPos[i - 1].x - oldPos[i].x;
 						const dyL = oldPos[i - 1].y - oldPos[i].y;
 						const lenL = Math.sqrt(dxL * dxL + dyL * dyL) || 1;
 						const forceL = stiffness * (lenL - restLength);
-
 						const dxR = oldPos[i + 1].x - oldPos[i].x;
 						const dyR = oldPos[i + 1].y - oldPos[i].y;
 						const lenR = Math.sqrt(dxR * dxR + dyR * dyR) || 1;
 						const forceR = stiffness * (lenR - restLength);
-
 						nodes[i].x += ((dxL / lenL) * forceL + (dxR / lenR) * forceR) * 0.5;
 						nodes[i].y += ((dyL / lenL) * forceL + (dyR / lenR) * forceR) * 0.5;
 					}
@@ -166,17 +186,14 @@
 				else if (track.id === 'GS') {
 					for (let i = 1; i < nodes.length - 1; i++) {
 						if (activeDragIndex === i) continue;
-
 						const dxL = nodes[i - 1].x - nodes[i].x;
 						const dyL = nodes[i - 1].y - nodes[i].y;
 						const lenL = Math.sqrt(dxL * dxL + dyL * dyL) || 1;
 						const forceL = stiffness * (lenL - restLength);
-
 						const dxR = nodes[i + 1].x - nodes[i].x;
 						const dyR = nodes[i + 1].y - nodes[i].y;
 						const lenR = Math.sqrt(dxR * dxR + dyR * dyR) || 1;
 						const forceR = stiffness * (lenR - restLength);
-
 						nodes[i].x += (dxL / lenL) * forceL + (dxR / lenR) * forceR;
 						nodes[i].y += (dyL / lenL) * forceL + (dyR / lenR) * forceR;
 					}
@@ -184,22 +201,17 @@
 				else if (track.id === 'Newton') {
 					for (let i = 1; i < nodes.length - 1; i++) {
 						if (activeDragIndex === i) continue;
-
 						const dxL = nodes[i - 1].x - nodes[i].x;
 						const dyL = nodes[i - 1].y - nodes[i].y;
 						const lenL = Math.sqrt(dxL * dxL + dyL * dyL) || 1;
 						const extL = lenL - restLength;
-
 						const dxR = nodes[i + 1].x - nodes[i].x;
 						const dyR = nodes[i + 1].y - nodes[i].y;
 						const lenR = Math.sqrt(dxR * dxR + dyR * dyR) || 1;
 						const extR = lenR - restLength;
-
 						const gradX = (dxL / lenL) * stiffness * extL + (dxR / lenR) * stiffness * extR;
 						const gradY = (dyL / lenL) * stiffness * extL + (dyR / lenR) * stiffness * extR;
-
 						const hessian = 2 * stiffness;
-
 						nodes[i].x += gradX / hessian;
 						nodes[i].y += gradY / hessian;
 					}
@@ -211,7 +223,6 @@
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			iterCounter.textContent = `Iterations: ${iterationCount}`;
 
-			// Draw background structural rest-line reference wire
 			ctx.strokeStyle = '#222';
 			ctx.lineWidth = 1;
 			ctx.beginPath();
@@ -219,26 +230,21 @@
 			ctx.lineTo(canvas.width, globalYCenter);
 			ctx.stroke();
 
-			// Draw Boundary Anchor Points
 			ctx.fillStyle = '#ff4444';
 			ctx.fillRect(0, globalYCenter - 8, 6, 16);
 			ctx.fillRect(canvas.width - 6, globalYCenter - 8, 6, 16);
 
-			// Render Overlapped Tracks
 			tracks.forEach((track) => {
 				const nodes = track.nodes;
-
-				// Draw Links
 				ctx.beginPath();
 				ctx.moveTo(nodes[0].x, nodes[0].y);
 				for (let i = 1; i < nodes.length; i++) {
 					ctx.lineTo(nodes[i].x, nodes[i].y);
 				}
 				ctx.strokeStyle = track.color;
-				ctx.lineWidth = track.id === 'Newton' ? 4 : 2; // Make Newton slightly thicker for overlap layering contrast
+				ctx.lineWidth = track.id === 'Newton' ? 4 : 2;
 				ctx.stroke();
 
-				// Draw Nodes
 				nodes.forEach((node, idx) => {
 					if (node.isFixed) return;
 					ctx.beginPath();
@@ -252,7 +258,6 @@
 			});
 		}
 
-		// Direct loop call just to track rendering accuracy cleanly
 		function animLoop() {
 			draw();
 			requestAnimationFrame(animLoop);
