@@ -1,6 +1,6 @@
 <div class="solver-container"
 	style="max-width: 720px; margin: 2rem auto; font-family: sans-serif; background: #1a1a1a; color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); box-sizing: border-box;">
-	<h3 style="margin-top: 0; text-align: center; color: #4af;">Overlapped Solver Comparison</h3>
+	<h3 style="margin-top: 0; text-align: center; color: #4af;">Solver Comparison</h3>
 	<p style="font-size: 0.85rem; text-align: center; color: #aaa; margin-bottom: 15px;">
 		Drag any node to deform the system. Step through individual iterations to watch the tracks split
 		apart and see which solver snaps back to structural rest fastest.
@@ -11,14 +11,15 @@
 		<button id="stepBtn"
 			style="background: #e67e22; border: none; color: #fff; padding: 6px 20px; border-radius: 3px; cursor: pointer; font-weight: bold; font-size: 0.9rem;">Step
 			1 Iteration</button>
+		<button id="step10Btn"
+			style="background: #2253e6; border: none; color: #fff; padding: 6px 20px; border-radius: 3px; cursor: pointer; font-weight: bold; font-size: 0.9rem;">Step
+			10 Iteration</button>
 		<button id="resetSolverBtn"
-			style="background: #e74c3c; border: none; color: #fff; padding: 6px 20px; border-radius: 3px; cursor: pointer; font-weight: bold; font-size: 0.9rem;">Reset
+			style="background: #e25545; border: none; color: #fff; padding: 6px 20px; border-radius: 3px; cursor: pointer; font-weight: bold; font-size: 0.9rem;">Reset
 			Simulation</button>
 
-		<div style="border-left: 1px solid #444; height: 20px; margin: 0 5px; flex-shrink: 0;"></div>
-		<span id="iterCounter"
-			style="font-weight: bold; color: #fff; white-space: nowrap; min-width: 95px; text-align: left;">Iterations:
-			0</span>
+		<div id="iterCounter" style="font-weight: bold; color: #fff; ">Iterations: 0</div>
+
 	</div>
 
 	<div
@@ -50,6 +51,7 @@
 		const ctx = canvas.getContext('2d');
 
 		const stepBtn = document.getElementById('stepBtn');
+		const step10Btn = document.getElementById('step10Btn');
 		const resetSolverBtn = document.getElementById('resetSolverBtn');
 		const iterCounter = document.getElementById('iterCounter');
 
@@ -161,6 +163,7 @@
 		window.addEventListener('touchcancel', handleEnd);
 
 		stepBtn.addEventListener('click', () => { runGlobalIteration(); draw(); });
+		step10Btn.addEventListener('click', () => { for(let it=0; it < 10; it++) {runGlobalIteration();} draw(); });
 		resetSolverBtn.addEventListener('click', () => { initTracks(); draw(); });
 
 		function runGlobalIteration() {
