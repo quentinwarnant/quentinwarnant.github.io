@@ -1,0 +1,178 @@
+<div class="integration-container"
+	style="max-width: 700px; margin: 2rem auto; font-family: sans-serif; background: #1a1a1a; color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); box-sizing: border-box;">
+	<h3 style="margin-top: 0; text-align: center; color: #4af;">Explicit vs. Implicit Integration</h3>
+	<p style="font-size: 0.85rem; text-align: center; color: #aaa; margin-bottom: 15px;">
+		Compare how a spring system behaves under both schemes. Crank up the Time Step (dt) to watch the Explicit scheme
+		explode while the Implicit scheme stays perfectly stable!
+	</p>
+
+	<div
+		style="display: flex; justify-content: center; gap: 20px; background: #222; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 0.85rem; flex-wrap: wrap;">
+		<label>
+			Time Step (dt): <input type="range" id="dtSlider" min="0.01" max="0.5" step="0.01" value="0.1"
+				style="vertical-align: middle;">
+			<span id="dtValue">0.10</span>
+		</label>
+		<button id="resetBtn"
+			style="background: #4af; border: none; color: #fff; padding: 4px 12px; border-radius: 3px; cursor: pointer; font-weight: bold;">Reset
+			Simulation</button>
+	</div>
+
+	<div style="display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap;">
+		<div style="flex: 1 1 280px; text-align: center; min-width: 0; box-sizing: border-box;">
+			<div style="margin-bottom: 5px; font-size: 0.9rem; font-weight: bold; color: #ff6b6b;">Explicit Integration
+			</div>
+			<canvas id="explicitCanvas" width="320" height="250"
+				style="background: #111; border-radius: 4px; display: block; width: 100%; height: auto; box-sizing: border-box;"></canvas>
+		</div>
+
+		<div style="flex: 1 1 280px; text-align: center; min-width: 0; box-sizing: border-box;">
+			<div style="margin-bottom: 5px; font-size: 0.9rem; font-weight: bold; color: #51cf66;">Implicit Integration
+			</div>
+			<canvas id="implicitCanvas" width="320" height="250"
+				style="background: #111; border-radius: 4px; display: block; width: 100%; height: auto; box-sizing: border-box;"></canvas>
+		</div>
+	</div>
+</div>
+
+<script>
+	(function () {
+		const expCanvas = document.getElementById('explicitCanvas');
+		const impCanvas = document.getElementById('implicitCanvas');
+		if (!expCanvas || !impCanvas) return;
+
+		const ctxExp = expCanvas.getContext('2d');
+		const ctxImp = impCanvas.getContext('2d');
+
+		const dtSlider = document.getElementById('dtSlider');
+		const dtValue = document.getElementById('dtValue');
+		const resetBtn = document.getElementById('resetBtn');
+		const expStatus = document.getElementById('explicitStatus');
+
+		const anchorX = 160;
+		const anchorY = 40;
+		const restLength = 80;
+		const stiffness = 8.0;
+		const mass = 1.0;
+		const gravity = 9.8;
+		const damping = 0.99;
+
+		let explicitState = { x: 160, y: 150, vx: 50, vy: 0, exploded: false };
+		let implicitState = { x: 160, y: 150, vx: 50, vy: 0 };
+
+		let dt = parseFloat(dtSlider.value);
+
+		dtSlider.addEventListener('input', function () {
+			dt = parseFloat(this.value);
+			dtValue.textContent = dt.toFixed(2);
+		});
+
+		resetBtn.addEventListener('click', resetSimulation);
+
+		function resetSimulation() {
+			explicitState = { x: 160, y: 150, vx: 50, vy: 0, exploded: false };
+			implicitState = { x: 160, y: 150, vx: 50, vy: 0 };
+			expStatus.textContent = "Status: Simulating";
+			expStatus.style.color = "#aaa";
+		}
+
+		function getSpringForce(posX, posY) {
+			const dx = posX - anchorX;
+			const dy = posY - anchorY;
+			const len = Math.sqrt(dx * dx + dy * dy);
+			if (len === 0) return { fx: 0, fy: 0 };
+			const ext = len - restLength;
+			return {
+				fx: -stiffness * ext * (dx / len),
+				fy: -stiffness * ext * (dy / len)
+			};
+		}
+
+		function stepExplicit() {
+			if (explicitState.exploded) return;
+
+			const force = getSpringForce(explicitState.x, explicitState.y);
+			const ax = force.fx / mass;
+			const ay = (force.fy / mass) + gravity;
+
+			explicitState.vx = (explicitState.vx + ax * dt) * damping;
+			explicitState.vy = (explicitState.vy + ay * dt) * damping;
+			explicitState.x += explicitState.vx * dt;
+			explicitState.y += explicitState.vy * dt;
+
+			if (isNaN(explicitState.x) || Math.abs(explicitState.x) > 2000 || Math.abs(explicitState.y) > 2000) {
+				explicitState.exploded = true;
+				expStatus.textContent = "Status: EXPLODED! 💥";
+				expStatus.style.color = "#ff6b6b";
+			}
+		}
+
+		function stepImplicit() {
+			let nextX = implicitState.x + implicitState.vx * dt;
+			let nextY = implicitState.y + implicitState.vy * dt + 0.5 * gravity * dt * dt;
+
+			for (let iter = 0; iter < 5; iter++) {
+				const force = getSpringForce(nextX, nextY);
+
+				const ax_phys = 2 * (force.fx / mass);
+				const ay_phys = 2 * ((force.fy / mass) + gravity);
+
+				const ax_impl = 2 * (nextX - implicitState.x - implicitState.vx * dt) / (dt * dt);
+				const ay_impl = 2 * (nextY - implicitState.y - implicitState.vy * dt) / (dt * dt);
+
+				const rx = ax_impl - ax_phys;
+				const ry = ay_impl - ay_phys;
+
+				const df = 2 / (dt * dt) + (stiffness / mass);
+
+				nextX -= rx / df;
+				nextY -= ry / df;
+			}
+
+			implicitState.vx = ((nextX - implicitState.x) / dt) * damping;
+			implicitState.vy = ((nextY - implicitState.y) / dt) * damping;
+			implicitState.x = nextX;
+			implicitState.y = nextY;
+		}
+
+		function drawScene(ctx, state, color) {
+			ctx.clearRect(0, 0, 320, 250);
+			ctx.fillStyle = '#fff';
+			ctx.fillRect(anchorX - 10, anchorY - 4, 20, 8);
+
+			if (state.exploded) {
+				ctx.fillStyle = '#ff6b6b';
+				ctx.font = '14px sans-serif';
+				ctx.fillText("Out of Bounds", anchorX - 45, anchorY + 60);
+				return;
+			}
+
+			ctx.strokeStyle = '#444';
+			ctx.lineWidth = 2;
+			ctx.beginPath();
+			ctx.moveTo(anchorX, anchorY);
+			ctx.lineTo(state.x, state.y);
+			ctx.stroke();
+
+			ctx.beginPath();
+			ctx.arc(state.x, state.y, 10, 0, 2 * Math.PI);
+			ctx.fillStyle = color;
+			ctx.fill();
+			ctx.strokeStyle = '#fff';
+			ctx.lineWidth = 1;
+			ctx.stroke();
+		}
+
+		function update() {
+			stepExplicit();
+			stepImplicit();
+
+			drawScene(ctxExp, explicitState, '#ff6b6b');
+			drawScene(ctxImp, implicitState, '#51cf66');
+
+			requestAnimationFrame(update);
+		}
+
+		update();
+	})();
+</script>

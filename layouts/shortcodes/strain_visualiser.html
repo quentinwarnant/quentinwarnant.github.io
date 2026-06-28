@@ -1,0 +1,180 @@
+<div class="simulator-container"
+	style="max-width: 700px; margin: 2rem auto; font-family: sans-serif; background: #1a1a1a; color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5);">
+	<h3 style="margin-top: 0; text-align: center; color: #4af;">Interactive Strain Visualiser</h3>
+	<p style="font-size: 0.85rem; text-align: center; color: #aaa; margin-bottom: 20px;">Try pulling nodes further or closer to each other, you will see the connections are strained (either
+	compressed or stretched), beyond their desired normal length.</p>
+
+	<div style="display: flex; justify-content: space-around; align-items: flex-start; gap: 20px;">
+
+		<div style="text-align: center;">
+			<div style="margin-bottom: 8px; font-size: 0.85rem; font-weight: bold; color: #aaa;">Hanging Chain</div>
+			<canvas id="chainCanvas" width="260" height="420"
+				style="background: #111; border-radius: 4px; display: block; cursor: pointer; max-width: 100%;"></canvas>
+		</div>
+
+		<div style="text-align: center; flex-grow: 1;">
+			<div style="margin-bottom: 8px; font-size: 0.85rem; font-weight: bold; color: #4af;">Link Strain (Potential
+				Energy)</div>
+			<canvas id="graphCanvas" width="360" height="420"
+				style="background: #111; border-radius: 4px; display: block; max-width: 100%;"></canvas>
+		</div>
+
+	</div>
+</div>
+
+<script>
+	(function () {
+		const chainCanvas = document.getElementById('chainCanvas');
+		const graphCanvas = document.getElementById('graphCanvas');
+		if (!chainCanvas || !graphCanvas) return;
+
+		const ctxChain = chainCanvas.getContext('2d');
+		const ctxGraph = graphCanvas.getContext('2d');
+
+		const nodes = [];
+		const numNodes = 6;
+		const restLength = 65; // Slightly tightened for vertical layout
+		const stiffness = 0.1;
+
+		// Position chain vertically from the top center
+		const startX = chainCanvas.width / 2;
+		const startY = 30;
+
+		for (let i = 0; i < numNodes; i++) {
+			nodes.push({
+				x: startX,
+				y: startY + i * restLength,
+				isFixed: i === 0, // Top node attached to the "ceiling"
+				isDragging: false
+			});
+		}
+
+		let draggedNode = null;
+
+		function getLinkStrain(nodeA, nodeB) {
+			const dx = nodeB.x - nodeA.x;
+			const dy = nodeB.y - nodeA.y;
+			const currentLength = Math.sqrt(dx * dx + dy * dy);
+			const extension = currentLength - restLength;
+			return 0.5 * stiffness * extension * extension;
+		}
+
+		function getMousePos(canvas, evt) {
+			const rect = canvas.getBoundingClientRect();
+			const scaleX = canvas.width / rect.width;
+			const scaleY = canvas.height / rect.height;
+			return {
+				x: (evt.clientX - rect.left) * scaleX,
+				y: (evt.clientY - rect.top) * scaleY
+			};
+		}
+
+		chainCanvas.addEventListener('mousedown', function (evt) {
+			const pos = getMousePos(chainCanvas, evt);
+			for (let i = 0; i < nodes.length; i++) {
+				const dx = nodes[i].x - pos.x;
+				const dy = nodes[i].y - pos.y;
+				if (Math.sqrt(dx * dx + dy * dy) < 15) {
+					nodes[i].isDragging = true;
+					draggedNode = nodes[i];
+					break;
+				}
+			}
+		});
+
+		window.addEventListener('mousemove', function (evt) {
+			if (!draggedNode) return;
+			const pos = getMousePos(chainCanvas, evt);
+			draggedNode.x = Math.max(10, Math.min(chainCanvas.width - 10, pos.x));
+			draggedNode.y = Math.max(10, Math.min(chainCanvas.height - 10, pos.y));
+			draw();
+		});
+
+		window.addEventListener('mouseup', function () {
+			if (draggedNode) {
+				draggedNode.isDragging = false;
+				draggedNode = null;
+			}
+		});
+
+		function draw() {
+			// --- 1. Draw Vertical Chain ---
+			ctxChain.clearRect(0, 0, chainCanvas.width, chainCanvas.height);
+
+			// Horizontal ceiling anchor visual
+			ctxChain.strokeStyle = '#444';
+			ctxChain.lineWidth = 4;
+			ctxChain.beginPath();
+			ctxChain.moveTo(startX - 30, startY);
+			ctxChain.lineTo(startX + 30, startY);
+			ctxChain.stroke();
+
+			// Draw Links
+			for (let i = 0; i < nodes.length - 1; i++) {
+				ctxChain.beginPath();
+				ctxChain.moveTo(nodes[i].x, nodes[i].y);
+				ctxChain.lineTo(nodes[i + 1].x, nodes[i + 1].y);
+
+				const strain = getLinkStrain(nodes[i], nodes[i + 1]);
+				const intensity = Math.min(255, Math.floor(strain * 5));
+				ctxChain.strokeStyle = `rgb(${100 + intensity}, ${100 - intensity}, 100)`;
+				ctxChain.lineWidth = 4;
+				ctxChain.stroke();
+			}
+
+			// Draw Nodes
+			nodes.forEach((node) => {
+				ctxChain.beginPath();
+				ctxChain.arc(node.x, node.y, node.isFixed ? 8 : 6, 0, 2 * Math.PI);
+				ctxChain.fillStyle = node.isFixed ? '#ff4444' : (node.isDragging ? '#00ffcc' : '#44aaff');
+				ctxChain.fill();
+				ctxChain.strokeStyle = '#fff';
+				ctxChain.lineWidth = 1;
+				ctxChain.stroke();
+			});
+
+			// --- 2. Draw Horizontal Strain Bars (Vertically Aligned) ---
+			ctxGraph.clearRect(0, 0, graphCanvas.width, graphCanvas.height);
+
+			const numBars = nodes.length - 1;
+			const barHeight = 24;
+
+			// Loop through each link and draw its bar aligned with the link's spatial span
+			for (let i = 0; i < numBars; i++) {
+				const strain = getLinkStrain(nodes[i], nodes[i + 1]);
+
+				// Map the vertical midpoint of the physical link to the graph's space
+				const linkMidPointY = (nodes[i].y + nodes[i + 1].y) / 2;
+				const barY = linkMidPointY - (barHeight / 2);
+
+				// Strain scales horizontal bar length
+				const barWidth = Math.min(graphCanvas.width - 90, strain * 2.5);
+				const barX = 65; // Give space for text label on the left
+
+				// Compute dynamic color profile
+				const red = Math.min(255, Math.floor(strain * 6));
+				const green = Math.max(50, 200 - Math.floor(strain * 4));
+				ctxGraph.fillStyle = `rgb(${red}, ${green}, 255)`;
+
+				// Draw horizontal bar
+				ctxGraph.fillRect(barX, barY, barWidth, barHeight);
+
+				// Left side labels tracking link numbers
+				ctxGraph.fillStyle = '#aaa';
+				ctxGraph.font = '11px sans-serif';
+				ctxGraph.textAlign = 'right';
+				ctxGraph.fillText(`Link ${i + 1} →`, barX - 10, barY + (barHeight / 2) + 4);
+
+				// Dynamic value indicator text at the tip of the bar
+				if (barWidth > 5) {
+					ctxGraph.fillStyle = 'rgba(255,255,255,0.7)';
+					ctxGraph.font = '10px sans-serif';
+					ctxGraph.textAlign = 'left';
+					ctxGraph.fillText(strain.toFixed(1), barX + barWidth + 8, barY + (barHeight / 2) + 3);
+				}
+			}
+		}
+
+		draw();
+	})();
+</script>

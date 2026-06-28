@@ -49,6 +49,9 @@ Spherical Harmonics are used to encode this information on each probe.
 Probes are usually placed at the surface of the geometry, not in empty space - to closely represent the light at those geometrical surfaces.
 
 It's impractical to cover the whole scene with probes at a very high density, so we interpolate between nearby probes instead
+This is acceptable and even encouraged to interpolate, because indirect light is "coherent" across a surface (ie: slowly changes over a same surface, and rapidly changes over angles).
+
+
 
 ## Irradiance
 Irradiance is the amount of light arriving at a location in space, it's dirrectionless and informs diffuse lighting.

@@ -14,9 +14,9 @@ I'm a regular contributor to Epic Game's Github depot with improvements, extensi
 
 {{< pull-request status=Open link=13718 desc="Exporting UStaticMeshSocket's Serialize and PostEditChangeProperty functions">}}
 
-{{< pull-request status=Open link=13628 desc="Shader loading: prevent dereferencing potential nullptr when file is not found">}}
+{{< pull-request status=Accepted version="5.7" link=13628 desc="Shader loading: prevent dereferencing potential nullptr when file is not found">}}
 
-{{< pull-request status=Open link=13627 desc="Extending RigidMeshCollisionQuery NDI: Exposing first element of each type & extents">}}
+{{< pull-request status=Accepted version="5.7" link=13627 desc="Extending RigidMeshCollisionQuery NDI: Exposing first element of each type & extents">}}
 
 {{< pull-request status=Accepted version="5.7" link=13328 desc="Niagara Data Interface allows us to set material parameters on Material Instance Dynamic objects, from a CPU stage">}}
 
