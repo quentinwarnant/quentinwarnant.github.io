@@ -39,5 +39,13 @@ url = "https://www.linkedin.com/in/quentin-warnant-b8006764/"
 identifier = "ffguPcejep"
 weight = 9_999
 
+[[main]]
+name = ""
+pre = "rss"
+url = "/index.xml"
+title = "Subscribe via RSS"
+identifier = "rss-feed"
+weight = 10_000
+
 [[footer]]
 none = "none"

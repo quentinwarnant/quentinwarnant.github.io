@@ -14,7 +14,7 @@ giteaDefaultServer = "https://git.fsfe.org"
 forgejoDefaultServer = "https://v11.next.forgejo.org"
 firebase = { }
 fathomAnalytics = { }
-umamiAnalytics = { }
+umamiAnalytics = { domain = "cloud.umami.is", websiteid = "c8349ff3-39a5-4b75-9811-3d6ce5f42b60" }
 selineAnalytics = { }
 buymeacoffee = { }
 verification = { }
