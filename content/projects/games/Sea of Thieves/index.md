@@ -4,7 +4,7 @@ date: 2018-03-01
 draft: false
 tags: ["game"]
 Type: "highlight"
-weight: 110
+weight: 105
 ---
 {{< youtube r5JIBaasuE8 >}}
 ### Description
@@ -18,5 +18,7 @@ Sea of Thieves is a smash-hit pirate adventure game, offering the quintessential
 ### Role: Senior rendering engineer
 
 #### Contributions:
-- Rendering performance optimisation on modern consoles
+- CPU & GPU performance optimisation on Gen 8 & 9 consoles to create headroom for visual features
+- Developped telemetry driven performance health dashboards to empower the team to focus on the most impactful areas for performance optimisations.
+- [upcoming features]
 
