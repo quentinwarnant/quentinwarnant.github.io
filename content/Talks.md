@@ -6,6 +6,10 @@ title = 'Talks'
 
 ## Public & internal talks
 
+2026
+- <span style="color:#ffb24e">Internal</span> | __RARE__ | _Wait Visual Studio can do that?!_
+- <span style="color:#ffb24e">Internal</span> | __RARE__ | _Various show & tells on Forza Tech used in Fable_
+
 2025
 - <span style="color:#0fb24e">Public</span> | __Unreal Fest Stockholm 2025__ | _Interactive vines using Niagara and Position-Based Dynamics_
 {{< youtube 7fmGQObsc7w >}}
